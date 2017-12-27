@@ -45,23 +45,23 @@ class CompactedSegmentionLog
   def initialize(base_filename: 'compact-database')
     @base_filename = base_filename
     @compactions = 0
-    @segment_hashes = [create_new_segment(0)]
+    @segments = [create_new_segment(0)]
   end
 
   def current_segment
-    @segment_hashes[-1]
+    @segments[-1]
   end
 
   def db_set(key, value, segment = current_segment)
     unless segment.space?(value.size)
-      segment = create_new_segment(@segment_hashes.size)
-      @segment_hashes << segment
+      segment = create_new_segment(@segments.size)
+      @segments << segment
     end
 
     segment.set(key, value)
   end
 
-  def db_get(key, segments = @segment_hashes)
+  def db_get(key, segments = @segments)
     segments.reverse.each do |segment|
       return segment.get(key) if segment.key?(key)
     end
@@ -69,13 +69,13 @@ class CompactedSegmentionLog
   end
 
   def compact!
-    keys = @segment_hashes.reduce(Set.new) do |memo, segment|
+    keys = @segments.reduce(Set.new) do |memo, segment|
       memo.merge segment.keys
     end
 
-    old_segments = @segment_hashes
+    old_segments = @segments
     @compactions += 1
-    @segment_hashes = [create_new_segment(0)]
+    @segments = [create_new_segment(0)]
 
     keys.each do |key|
       value = db_get(key, old_segments)

@@ -35,12 +35,12 @@ end
 
 class SegmentedLog
   def initialize(base_filename: 'database')
-    @segment_hashes=[Segment.new]
+    @segments=[Segment.new]
     @base_filename = base_filename
   end
 
   def current_segment
-    @segment_hashes[-1]
+    @segments[-1]
   end
 
   def db_set(key, value)
@@ -51,7 +51,7 @@ class SegmentedLog
   end
 
   def db_get(key)
-    @segment_hashes.reverse.each do |segment|
+    @segments.reverse.each do |segment|
       return segment.get(key) if segment.has_key?(key)
     end
     nil
@@ -60,6 +60,6 @@ class SegmentedLog
   private
 
   def create_new_segment
-    @segment_hashes << Segment.new(filename: "#{@base_filename}-#{@segment_hashes.size}")
+    @segments << Segment.new(filename: "#{@base_filename}-#{@segments.size}")
   end
 end
