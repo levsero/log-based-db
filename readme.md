@@ -1,0 +1,3 @@
+When storing data to a database you want it to be performant for both insertions, retrieves, and space even as it grows in size. While there are many ways of accomplishing this, we will look at log based systems where generally we will aim for append only insertions with indexing where possible for performant look ups.
+
+This starts from a plain text [log file](/log_file/readme.md) with no indexing. We than add [indexing](/log_with_in_memory_index/readme.md) for efficient lookups. The next issue we address is horizontal scalability by adding [segmentation](/segmented_log/readme.md) and [compaction](/segmented_log_with_compaction/readme.md).

@@ -1,6 +1,7 @@
 ### Segmented log with in memory index
 
 `db_set` has near constant time insertion as it is just appending to end of file.
+
 `db_get` checks the hash of each segment in reverse order for the key, than performs a single disk seek on the first found key.
 
 Can split the segments to each use their own file, which we can use as a base for scaling this db horizontally.

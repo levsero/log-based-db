@@ -1,6 +1,7 @@
 ### Log with in memory index
 
 `db_set` has near constant time insertion as it is just appending to end of file.
+
 `db_get` highly scalable performance (a single disk seek) as it has direct lookup to get the specific byte offset.
 
 Will have issues scaling in size:
@@ -14,4 +15,3 @@ The index would need a recovery mechanism.
 ### Difference:
 
 Adds a hash of keys pointing at the byte offset in the file for a given key.
-
