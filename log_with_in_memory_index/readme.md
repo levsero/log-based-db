@@ -10,3 +10,8 @@ Will have issues scaling in size:
 
 The index would need a recovery mechanism.
 (Be able to build an index for an existing file.)
+
+### Difference:
+
+Adds a hash of keys pointing at the byte offset in the file for a given key.
+

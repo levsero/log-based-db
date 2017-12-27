@@ -7,13 +7,11 @@ class Segment
     @hash_index = {}
   end
 
-  def has_space?(size)
-    p "size #{size}"
-    p "segment_size: #{@segment_size}, max_segment_size: #{@max_segment_size}"
-    p @max_segment_size - @segment_size > size
+  def space?(size)
+    @max_segment_size - @segment_size > size
   end
 
-  def has_key?(key)
+  def key?(key)
     @hash_index.key?(key)
   end
 
@@ -21,12 +19,15 @@ class Segment
     @hash_index.keys
   end
 
+  def destroy!
+    File.delete(@filename)
+  end
+
   def set(key, value)
     File.open(@filename, 'a') do |file|
       file.puts(value)
       size = value.length + 1
 
-      # store index
       @hash_index[key] = file.pos - (value.length + 1)
     end
     @segment_size += value.size
@@ -42,9 +43,9 @@ end
 
 class CompactedSegmentionLog
   def initialize(base_filename: 'compact-database')
-    @segment_hashes = create_segments
     @base_filename = base_filename
     @compactions = 0
+    @segment_hashes = [create_new_segment(0)]
   end
 
   def current_segment
@@ -52,7 +53,11 @@ class CompactedSegmentionLog
   end
 
   def db_set(key, value, segment = current_segment)
-    segment = create_new_segment unless segment.has_space?(value.size)
+    unless segment.space?(value.size)
+      segment = create_new_segment(@segment_hashes.size)
+      @segment_hashes << segment
+    end
+
     segment.set(key, value)
   end
 
@@ -63,30 +68,26 @@ class CompactedSegmentionLog
     nil
   end
 
-  def compact
+  def compact!
     keys = @segment_hashes.reduce(Set.new) do |memo, segment|
       memo.merge segment.keys
     end
 
     old_segments = @segment_hashes
     @compactions += 1
-    @segment_hashes = create_segments
+    @segment_hashes = [create_new_segment(0)]
 
     keys.each do |key|
-      db_get(key, old_segments)
-      db_set(key)
+      value = db_get(key, old_segments)
+      db_set(key, value)
     end
 
-    old_segments.each(&:delete)
+    old_segments.each(&:destroy!)
   end
 
   private
 
-  def create_segments
-    [create_new_segment]
-  end
-
-  def create_new_segment
-    @segment_hashes << Segment.new(filename: "#{@base_filename}-#{@segment_hashes.size}-#{@compactions}")
+  def create_new_segment(file_number)
+    Segment.new(filename: "#{@base_filename}-#{file_number}-#{@compactions}")
   end
 end
