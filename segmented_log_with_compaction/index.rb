@@ -25,18 +25,18 @@ class Segment
 
   def set(key, value)
     File.open(@filename, 'a') do |file|
-      file.puts(value)
+      file.puts("#{key}:#{value}")
       size = value.length + 1
 
-      @hash_index[key] = file.pos - (value.length + 1)
+      @hash_index[key] = file.pos - (value.length + key.length + 2)
     end
-    @segment_size += value.size
+    @segment_size += (value.length + key.length + 2)
   end
 
   def get(key)
     File.open(@filename, 'r') do |file|
       file.seek(@hash_index[key])
-      p file.readline.strip
+      file.readline.strip.split(':', 2)[1]
     end
   end
 end
