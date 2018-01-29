@@ -1,0 +1,48 @@
+load '/Users/leviserebryanski/Documents/trees/log_with_in_memory_index/index.rb'
+a = IndexedLog.new
+
+a
+a.db_get('eeee')
+
+a.db_set('aaaa','{value: first}');
+a.db_set('bbbb','{value: first}');
+a.db_set('cccc','{value: first}');
+a.db_set('dddd','{value: first}');
+a.db_set('eeee','{value: first}');
+a.db_set('ffff','{value: first}');
+a.db_set('gggg','{value: first}');
+a.db_set('hhhh','{value: first}');
+a.db_set('iiii','{value: first}');
+
+a
+a.db_get('eeee')
+
+a.db_set('aaaa','{value: second}');
+a.db_set('bbbb','{value: second}');
+a.db_set('cccc','{value: second}');
+a.db_set('dddd','{value: second}');
+a.db_set('eeee','{value: second}');
+a.db_set('ffff','{value: second}');
+a.db_set('gggg','{value: second}');
+a.db_set('hhhh','{value: second}');
+a.db_set('iiii','{value: second}');
+
+a
+a.db_get('eeee')
+
+a.db_set('aaaa','{value: third}');
+a.db_set('bbbb','{value: third}');
+a.db_set('cccc','{value: third}');
+a.db_set('dddd','{value: third}');
+a.db_set('eeee','{value: third}');
+a.db_set('ffff','{value: third}');
+a.db_set('gggg','{value: third}');
+a.db_set('hhhh','{value: third}');
+a.db_set('iiii','{value: third}');
+
+a
+a.db_get('eeee')
+
+# writes are identical to the basic log
+# gets on the other hand now longer read the whole file into memory
+# and don't need to scan all the values

@@ -1,6 +1,6 @@
 require 'set'
 class Segment
-  def initialize(filename: 'database', max_segment_size: 100)
+  def initialize(filename:, max_segment_size: 150)
     @segment_size = 0
     @max_segment_size = max_segment_size
     @filename = filename
@@ -24,6 +24,7 @@ class Segment
   end
 
   def set(key, value)
+    puts @filename
     File.open(@filename, 'a') do |file|
       file.puts("#{key}:#{value}")
       size = value.length + 1
@@ -46,6 +47,10 @@ class CompactedSegmentionLog
     @base_filename = base_filename
     @compactions = 0
     @segments = [create_new_segment(0)]
+  end
+
+  def segments
+    @segments
   end
 
   def current_segment

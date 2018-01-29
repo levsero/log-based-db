@@ -1,5 +1,5 @@
-class InMemorySegment
-  def initialize(filename: 'database', max_segment_size: 100)
+gclass InMemorySegment
+  def initialize(filename: 'database', max_segment_size: 150)
     @segment_size = 0
     @max_segment_size = max_segment_size
     @data = {}

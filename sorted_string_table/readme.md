@@ -6,6 +6,10 @@
 
 `compact!` compacts the existing persisted segments. Opens all the files reading only the first key-value pair of each into memory sorts them, and merges in the most recent one. For each file that had that key it moves to the second key-value pair. Since it always takes the first one in a sorted order this maintains sorting in every segment even after compaction.
 
+Currently storing the in memory index in a hash so duplicates don't exist, but usually this would be a tree of some sort.
+
+Used by RocksDB which is used by kafka streams
+
 ### Difference:
 
 Every file is now alphabetically sorted on persistence. This is achieved by keeping the segment in memory and only persisting to a given file once and doing so in a sorted order. Additionally the merge has also been rewritten so it will maintain the sort ordering on merge.

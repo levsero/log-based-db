@@ -1,0 +1,33 @@
+load '/Users/leviserebryanski/Documents/trees/log/index.rb'
+
+db_set('aaaa','{value: first}')
+db_set('bbbb','{value: first}')
+db_set('cccc','{value: first}')
+db_set('dddd','{value: first}')
+db_set('eeee','{value: first}')
+db_set('ffff','{value: first}')
+db_set('gggg','{value: first}')
+db_set('hhhh','{value: first}')
+db_set('iiii','{value: first}')
+db_set('aaaa','{value: second}')
+db_set('bbbb','{value: second}')
+db_set('cccc','{value: second}')
+db_set('dddd','{value: second}')
+db_set('eeee','{value: second}')
+db_set('ffff','{value: second}')
+db_set('gggg','{value: second}')
+db_set('hhhh','{value: second}')
+db_set('iiii','{value: second}')
+db_set('aaaa','{value: third}')
+db_set('bbbb','{value: third}')
+db_set('cccc','{value: third}')
+db_set('dddd','{value: third}')
+db_set('eeee','{value: third}')
+db_set('ffff','{value: third}')
+db_set('gggg','{value: third}')
+db_set('hhhh','{value: third}')
+db_set('iiii','{value: third}')
+
+
+
+db_get('gggg')

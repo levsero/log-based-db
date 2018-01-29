@@ -1,0 +1,38 @@
+load '/Users/leviserebryanski/Documents/trees/sorted_string_table/index.rb'
+a = SSTable.new
+
+a.db_set('aaaa','{value: first}')
+a.db_set('bbbb','{value: first}')
+a.db_set('cccc','{value: first}')
+a.db_set('dddd','{value: first}')
+a.db_set('eeee','{value: first}')
+a.db_set('ffff','{value: first}')
+a.db_set('gggg','{value: first}')
+a.db_set('hhhh','{value: first}')
+a.db_set('iiii','{value: first}')
+a.db_set('aaaa','{value: second}')
+a.db_set('bbbb','{value: second}')
+a.db_set('cccc','{value: second}')
+a.db_set('dddd','{value: second}')
+a.db_set('eeee','{value: second}')
+a.db_set('ffff','{value: second}')
+a.db_set('gggg','{value: second}')
+a.db_set('hhhh','{value: second}')
+a.db_set('iiii','{value: second}')
+a.db_set('aaaa','{value: third}')
+a.db_set('bbbb','{value: third}')
+a.db_set('cccc','{value: third}')
+a.db_set('dddd','{value: third}')
+a.db_set('eeee','{value: third}')
+a.db_set('ffff','{value: third}')
+a.db_set('gggg','{value: third}')
+a.db_set('hhhh','{value: third}')
+a.db_set('iiii','{value: third}')
+
+# will notice the values in 5-0 don't go to f instead of i because the last values
+# are still in memory.
+
+a.compact!
+
+# reduces 6 to 3 and again the values that were only in memory are not compacted
+# so the last values are still second not third.

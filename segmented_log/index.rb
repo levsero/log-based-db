@@ -1,5 +1,5 @@
 class Segment
-  def initialize(filename: 'database', max_segment_size: 100)
+  def initialize(filename: 'segmented-database', max_segment_size: 150)
     @segment_size = 0
     @max_segment_size = max_segment_size
     @filename = filename
@@ -34,9 +34,13 @@ class Segment
 end
 
 class SegmentedLog
-  def initialize(base_filename: 'database')
-    @segments=[Segment.new]
+  def initialize(base_filename: 'segmented-database')
     @base_filename = base_filename
+    @segments=[Segment.new]
+  end
+
+  def segments
+    @segments
   end
 
   def current_segment

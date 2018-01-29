@@ -1,0 +1,51 @@
+load '/Users/leviserebryanski/Documents/trees/segmented_log/index.rb'
+a = SegmentedLog.new
+
+a
+
+a.db_set('aaaa','{value: first a}');
+a.db_set('bbbb','{value: first b}');
+a.db_set('cccc','{value: first c}');
+a.db_set('dddd','{value: first d}');
+a.db_set('eeee','{value: first e}');
+a.db_set('ffff','{value: first f}');
+a.db_set('gggg','{value: first g}');
+a.db_set('hhhh','{value: first h}');
+a.db_set('iiii','{value: first i}');
+
+a
+a.db_get('eeee')
+
+a.db_set('aaaa','{value: second a}');
+a.db_set('bbbb','{value: second b}');
+a.db_set('cccc','{value: second c}');
+a.db_set('dddd','{value: second d}');
+a.db_set('eeee','{value: second e}');
+a.db_set('ffff','{value: second f}');
+a.db_set('gggg','{value: second g}');
+a.db_set('hhhh','{value: second h}');
+a.db_set('iiii','{value: second i}');
+
+a
+a.db_get('eeee')
+
+a.db_set('aaaa','{value: third a}');
+a.db_set('bbbb','{value: third b}');
+a.db_set('cccc','{value: third c}');
+a.db_set('dddd','{value: third d}');
+a.db_set('eeee','{value: third e}');
+a.db_set('ffff','{value: third f}');
+a.db_set('gggg','{value: third g}');
+a.db_set('hhhh','{value: third h}');
+a.db_set('iiii','{value: third i}');
+
+a
+a.db_get('eeee')
+
+a.segments
+
+# Splits into segments
+# Each segment maintains its own index
+# Has to read all segments in reverse until it finds the key
+# If key doesn't exist has to read all segments
+# - we won't implementing a fix but can use Bloom filters to track if a key is stored
