@@ -2,4 +2,4 @@ When storing data to a database it may depend somewhat on the use case but gener
 
 Log based systems are generally very efficient at inserting and retrieving individual records and with the right system can also work well with retrieving ranges of data. On the other hand if you want a system that is easy to perform many different dynamic queries it can have its shortcomings.
 
-This starts from a plain text [log file](/log_file/readme.md) with no indexing. We than add [indexing](/log_with_in_memory_index/readme.md) for efficient lookups. The next issue we address is horizontal scalability by adding [segmentation](/segmented_log/readme.md) and [compaction](/segmented_log_with_compaction/readme.md).
+This starts from a plain text [log file](/log_file/index.rb) with no indexing. We than add [indexing](/log_with_in_memory_index/readme.md) for efficient lookups. The next issue we address is horizontal scalability by adding [segmentation](/segmented_log/readme.md) and [compaction](/segmented_log_with_compaction/readme.md).
